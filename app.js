@@ -1796,6 +1796,40 @@ const OLD_LINKS = {
   6: 'start/telegram',
 };
 
+// One link per role to send out: #/dlia/<id>. `modules` is the path in
+// order; `also` lists modules worth a look but not part of the path.
+const BUNDLES = [
+  {
+    id: 'orhanizatoriv',
+    title: 'Організаторам і Помічникам',
+    who: 'Організатор або Помічник події',
+    sees: 'Свої події: реєстр, форму, відвідуваність, групи, команду.',
+    modules: ['start', 'podii'],
+  },
+  {
+    id: 'hospodariv',
+    title: 'Господарям Домів',
+    who: 'Господар Дому',
+    sees: 'Свій Дім: учасників, час зустрічей і матеріали на тиждень.',
+    modules: ['start', 'domy'],
+  },
+  {
+    id: 'koordynatoriv-domiv',
+    title: 'Координаторам Домів',
+    who: 'Координатор Домів',
+    sees: 'Усі Доми, заявки до Домів, загальні матеріали, звернення.',
+    modules: ['start', 'koordynatsiia'],
+  },
+  {
+    id: 'koordynatoriv',
+    title: 'Координаторам і адміністраторам',
+    who: 'Координатори й адміністратори',
+    sees: 'Усе: події, курси, анкети, новини, свідчення, Доми, користувачів.',
+    modules: ['start', 'staff'],
+    also: ['podii', 'koordynatsiia'],
+  },
+];
+
 const FAQ = [
   ['Лист для входу не надійшов', 'Перевірте «Спам» і «Промоакції». Переконайтеся, що вводите ту саму адресу, на яку вас додали. Натисніть «Надіслати ще раз».'],
   ['«Код неправильний або застарів»', 'Запросіть новий лист і введіть код із найсвіжішого. Код діє одну годину і лише один раз.'],
@@ -1835,6 +1869,25 @@ let done = loadDone();
 const lessonKey = (m, l) => `${m.id}/${l.id}`;
 const moduleDone = (m) => m.lessons.filter((l) => done.has(lessonKey(m, l))).length;
 
+// The last role link this device opened: its lessons lead back to it.
+const ROLE_KEY = 'galilea-guide-role';
+let role = null;
+try {
+  role = localStorage.getItem(ROLE_KEY);
+} catch {
+  /* private mode: lessons just lead back to all modules */
+}
+const mod = (id) => MODULES.find((x) => x.id === id);
+const bundleFor = (m) => {
+  const b = BUNDLES.find((x) => x.id === role);
+  return b && [...b.modules, ...(b.also || [])].includes(m.id) ? b : null;
+};
+const pathOf = (b) => b.modules.flatMap((id) => mod(id).lessons.map((l) => ({ m: mod(id), l })));
+const rootCrumb = (m, arrow = '') => {
+  const b = bundleFor(m);
+  return b ? `<a href="#/dlia/${b.id}">${arrow}Ваші уроки</a>` : `<a href="#/">${arrow}Усі модулі</a>`;
+};
+
 // ===================================================================
 // Helpers and routing
 // ===================================================================
@@ -1859,6 +1912,8 @@ function route() {
     return;
   }
   const [mId, lId, stepNo] = hash.split('/');
+  const b = mId === 'dlia' && BUNDLES.find((x) => x.id === lId);
+  if (b) return renderBundle(b);
   const m = MODULES.find((x) => x.id === mId);
   if (m && lId) {
     const li = m.lessons.findIndex((x) => x.id === lId);
@@ -1884,36 +1939,17 @@ function renderHome() {
 
       <div class="intro">
         <p><b>Адмінпанель</b> — закрита частина сайту «Галилеї» для команди спільноти. Тут ведуть реєстрації на події, позначають, хто прийшов, діляться матеріалами для Домів. Вона відкривається за адресою <a href="https://admin.galilea.com.ua" target="_blank" rel="noopener">admin.galilea.com.ua</a> — з комп’ютера чи телефона.</p>
-        <p>Кожен бачить лише своє:</p>
+        <p>Кожен бачить лише своє — тож і уроки для кожної ролі свої:</p>
         <table class="roles">
           <thead><tr><th>Хто ви</th><th>Що бачите</th></tr></thead>
           <tbody>
-            <tr><td>Організатор або Помічник події</td><td>Свої події: реєстр, форму, відвідуваність, групи, команду. <a href="#/podii">Модуль «Події»</a></td></tr>
-            <tr><td>Господар Дому</td><td>Свій Дім: учасників, час зустрічей і матеріали на тиждень. <a href="#/domy">Модуль «Доми»</a></td></tr>
-            <tr><td>Координатор Домів</td><td>Усі Доми, заявки до Домів, загальні матеріали, звернення. <a href="#/koordynatsiia">Модуль «Координація Домів»</a></td></tr>
-            <tr><td>Координатори й адміністратори</td><td>Усе: події, курси, анкети, новини, свідчення, Доми, користувачів. <a href="#/staff">Модуль «Координаторам і адміністраторам»</a></td></tr>
+            ${BUNDLES.map((b) => `<tr><td>${h(b.who)}</td><td>${h(b.sees)} <a href="#/dlia/${b.id}">Уроки для вас →</a></td></tr>`).join('')}
           </tbody>
         </table>
-        <p>Почніть із модуля <a href="#/start">«Початок роботи»</a> — він для всіх. Далі — модуль вашої ролі.</p>
       </div>
 
       <h2 class="section-title">Модулі</h2>
-      <ol class="modules">
-        ${MODULES.map((m) => {
-          const n = moduleDone(m);
-          const total = m.lessons.length;
-          return `
-          <li>
-            <a class="module" href="#/${m.id}">
-              <span class="who">${h(m.who)}</span>
-              <h3>${h(m.title)}</h3>
-              <p>${h(m.summary)}</p>
-              ${bar(n, total, `Пройдено уроків: ${m.title}`)}
-              <span class="meta">${n ? `Пройдено ${n} з ${total}` : `${total} ${plural(total, 'урок', 'уроки', 'уроків')}`}</span>
-            </a>
-          </li>`;
-        }).join('')}
-      </ol>
+      <ol class="modules">${MODULES.map(moduleCard).join('')}</ol>
 
       <h2 class="section-title" id="faq">Якщо щось не так</h2>
       <input class="faq-search" type="search" placeholder="Шукати: лист, код, пароль, помічник…" aria-label="Пошук у запитаннях" />
@@ -1940,6 +1976,58 @@ function renderHome() {
   window.scrollTo(0, 0);
 }
 
+function moduleCard(m) {
+  const n = moduleDone(m);
+  const total = m.lessons.length;
+  return `
+          <li>
+            <a class="module" href="#/${m.id}">
+              <span class="who">${h(m.who)}</span>
+              <h3>${h(m.title)}</h3>
+              <p>${h(m.summary)}</p>
+              ${bar(n, total, `Пройдено уроків: ${m.title}`)}
+              <span class="meta">${n ? `Пройдено ${n} з ${total}` : `${total} ${plural(total, 'урок', 'уроки', 'уроків')}`}</span>
+            </a>
+          </li>`;
+}
+
+// ===================================================================
+// Role page: the link sent to people of one role
+// ===================================================================
+function renderBundle(b) {
+  current = null;
+  role = b.id;
+  try {
+    localStorage.setItem(ROLE_KEY, b.id);
+  } catch {
+    /* private mode */
+  }
+  document.title = `${b.title} — Посібник адмінпанелі`;
+  const path = pathOf(b);
+  const n = path.filter(({ m, l }) => done.has(lessonKey(m, l))).length;
+  const next = path.find(({ m, l }) => !done.has(lessonKey(m, l))) || path[0];
+  const cta = n === 0 ? 'Почати перший урок' : n === path.length ? 'Пройти ще раз' : `Продовжити: «${h(next.l.title)}»`;
+  // «бачите усе» → «бачите все»: after a vowel Ukrainian takes в-, not у-.
+  const sees = (b.sees.charAt(0).toLowerCase() + b.sees.slice(1)).replace(/^ус/, 'вс');
+  app.innerHTML = `
+    <div class="wrap">
+      <section class="module-head">
+        <nav class="crumbs"><a href="#/">← Усі модулі</a></nav>
+        <p class="eyebrow">Посібник для вашої ролі</p>
+        <h1>${h(b.title)}</h1>
+        <p class="lead">В адмінпанелі ви бачите ${h(sees)} Ось уроки для вас — по черзі, кожен на кілька хвилин.</p>
+        <div class="progress">
+          <a class="btn btn-primary" href="#/${next.m.id}/${next.l.id}">${cta} →</a>
+          ${bar(n, path.length, 'Пройдено уроків')}
+          <span class="progress-label">Пройдено ${n} з ${path.length}</span>
+        </div>
+      </section>
+      ${b.modules.map((id) => `<h2 class="section-title">${h(mod(id).title)}</h2>${lessonCards(mod(id))}`).join('')}
+      ${b.also ? `<h2 class="section-title">Також стане в пригоді</h2><ol class="modules">${b.also.map((id) => moduleCard(mod(id))).join('')}</ol>` : ''}
+    </div>`;
+  window.scrollTo(0, 0);
+}
+
 // ===================================================================
 // Module page
 // ===================================================================
@@ -1953,7 +2041,7 @@ function renderModule(m) {
   app.innerHTML = `
     <div class="wrap">
       <section class="module-head">
-        <nav class="crumbs"><a href="#/">← Усі модулі</a></nav>
+        <nav class="crumbs">${rootCrumb(m, '← ')}</nav>
         <p class="eyebrow">${h(m.who)}</p>
         <h1>${h(m.title)}</h1>
         <p class="lead">${h(m.summary)}</p>
@@ -1964,6 +2052,13 @@ function renderModule(m) {
         </div>
       </section>
       <h2 class="section-title">Уроки</h2>
+      ${lessonCards(m)}
+    </div>`;
+  window.scrollTo(0, 0);
+}
+
+function lessonCards(m) {
+  return `
       <ol class="cards">
         ${m.lessons
           .map((l, i) => {
@@ -1981,9 +2076,7 @@ function renderModule(m) {
           </li>`;
           })
           .join('')}
-      </ol>
-    </div>`;
-  window.scrollTo(0, 0);
+      </ol>`;
 }
 
 // ===================================================================
@@ -1996,7 +2089,7 @@ function renderLesson(m, li, step) {
   document.title = `${lesson.title} — Посібник адмінпанелі`;
   app.innerHTML = `
     <div class="wrap lesson">
-      <nav class="crumbs"><a href="#/">Усі модулі</a><span>/</span><a href="#/${m.id}">${h(m.title)}</a></nav>
+      <nav class="crumbs">${rootCrumb(m)}<span>/</span><a href="#/${m.id}">${h(m.title)}</a></nav>
       <p class="eyebrow">Урок ${li + 1} з ${m.lessons.length}</p>
       <h1>${h(lesson.title)}</h1>
       <div class="lesson-grid">
@@ -2065,6 +2158,13 @@ function finishLesson() {
   if (li + 1 < m.lessons.length) {
     const next = m.lessons[li + 1];
     box.innerHTML = `<p><b>Урок пройдено.</b> Далі: «${h(next.title)}».</p><a class="btn btn-primary" href="#/${m.id}/${next.id}">Наступний урок →</a>`;
+  } else if (bundleFor(m)) {
+    const b = bundleFor(m);
+    const i = b.modules.indexOf(m.id);
+    const nextModule = i >= 0 && mod(b.modules[i + 1]);
+    box.innerHTML = nextModule
+      ? `<p><b>Модуль «${h(m.title)}» пройдено!</b> Далі — «${h(nextModule.title)}».</p><a class="btn btn-primary" href="#/${nextModule.id}/${nextModule.lessons[0].id}">Наступний урок →</a>`
+      : `<p><b>Модуль «${h(m.title)}» пройдено!</b>${i >= 0 ? ' Це останній модуль для вашої ролі.' : ''}</p><a class="btn btn-primary" href="#/dlia/${b.id}">До ваших уроків</a>`;
   } else {
     const mi = MODULES.indexOf(m);
     const nextModule = MODULES.slice(mi + 1).find((x) => moduleDone(x) < x.lessons.length);
