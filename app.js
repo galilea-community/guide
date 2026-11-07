@@ -2136,12 +2136,19 @@ function show(step) {
       <p class="kbd-hint">Порада: стрілки ← → на клавіатурі теж працюють.</p>`;
   } else {
     const qz = lesson.quiz;
+    // Shown in a fresh random order each time, so the right answer's place
+    // gives nothing away; data-answer keeps each option's index in `options`.
+    const order = qz.options.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
     panel.innerHTML = `
       <div class="step-count">Перевірте себе</div>
       <div class="dots">${dots}${quizDot}</div>
       <h2>${h(qz.q)}</h2>
       <div class="options">
-        ${qz.options.map((o, i) => `<button class="option" data-answer="${i}">${h(o)}</button>`).join('')}
+        ${order.map((i) => `<button class="option" data-answer="${i}">${h(qz.options[i])}</button>`).join('')}
       </div>
       <p class="feedback" hidden></p>
       <div class="nav"><button class="btn btn-ghost" data-go="${step - 1}">← Назад</button></div>`;
