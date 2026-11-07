@@ -2,7 +2,7 @@
 
 An interactive, Ukrainian-only guide to the Galilea admin panel (admin.galilea.com.ua), split into modules by role. Short lessons on real screenshots, a one-question check after each, per-device progress, and a searchable FAQ. Plain static files with no build step.
 
-Live: https://galilea-community.github.io/guide/
+Live: https://guide.galilea.com.ua/ (GitHub Pages custom domain; DNS: CNAME `guide` → `galilea-community.github.io` at uadns.com)
 
 ## Modules
 
@@ -48,4 +48,4 @@ The account menu shows «Telegram» only while the `telegram` feature flag is on
 
 ## Publishing
 
-GitHub Pages from the repository root (`main`, `/`). `.nojekyll` makes Pages serve the files as they are. A push to `main` redeploys in about a minute.
+GitHub Pages from the repository root (`main`, `/`). `.nojekyll` makes Pages serve the files as they are, and `CNAME` holds the custom domain (keep it — deleting it drops the domain). Changes go through a PR; merging to `main` redeploys in about a minute.
