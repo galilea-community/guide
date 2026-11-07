@@ -38,6 +38,8 @@ They live in `BUNDLES` in `app.js`; the home page's role table is built from the
 
 A step is `{ screen, spot: [x, y], title, text }` for a button, or `{ screen, area: [x, y, w, h], … }` for a whole section (drawn as an outline). Both are in the screenshot's own pixels, so you can read coordinates straight off the image. Mock-up steps use `focus: '<data-focus name>'` instead. Copy follows the app's wording: use the exact button labels from `web-app/src/messages/uk.json`, and «адмінпанель» (never «адмінка»).
 
+A quiz is `{ q, options, answer, why }`, with `answer` the right option's index in `options`. The options are shuffled each time the quiz is shown, so their order in the file doesn't matter, but keep the right one from standing out by length.
+
 Links: `#/dlia/orhanizatoriv` (a role), `#/podii` (a module), `#/podii/reiestr` (a lesson), `#/podii/reiestr/4` (a step).
 
 ## Preview locally
