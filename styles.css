@@ -339,6 +339,164 @@ button {
   font-weight: 600;
 }
 
+/* ---------- Home: intro, roles, modules ---------- */
+.intro {
+  display: grid;
+  gap: 14px;
+  max-width: 760px;
+}
+
+.intro p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 17px;
+}
+
+.roles {
+  width: 100%;
+  max-width: 760px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.roles th,
+.roles td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.roles tr:last-child td {
+  border-bottom: 0;
+}
+
+.roles th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--green-soft) 45%, var(--surface));
+}
+
+.roles td:first-child {
+  font-weight: 600;
+  width: 34%;
+}
+
+.roles a {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.modules {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 760px) {
+  .modules {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.module {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    transform 0.15s ease,
+    border-color 0.2s ease;
+}
+
+.module:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--green) 40%, var(--line));
+}
+
+.module .who {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.module h3 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.module p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  flex: 1;
+}
+
+.module .progress-bar {
+  max-width: none;
+  flex: none;
+  height: 8px;
+}
+
+.module .meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.crumbs a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.crumbs span {
+  color: var(--muted);
+}
+
+.module-head {
+  padding: 22px 0 6px;
+}
+
+.module-head h1 {
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 800;
+}
+
+.module-head .lead {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 10px 0 18px;
+}
+
+.panel .text a {
+  font-weight: 600;
+}
+
 /* ---------- FAQ ---------- */
 .faq-search {
   width: 100%;
@@ -468,6 +626,24 @@ button {
   background: #f6f9f7;
 }
 
+/* The same frame as a laptop, for computer screenshots (1280 × 800). */
+.phone.laptop {
+  width: min(100%, 600px);
+  padding: 10px 10px 16px;
+  border-radius: 16px;
+}
+
+.laptop .screen {
+  aspect-ratio: 1280 / 800;
+  border-radius: 6px;
+}
+
+@media (min-width: 860px) {
+  .phone.laptop {
+    width: 560px;
+  }
+}
+
 .canvas {
   position: absolute;
   inset: 0 0 auto 0;
@@ -562,6 +738,14 @@ button {
 .spot.active span {
   opacity: 1;
   transform: scale(1);
+}
+
+/* Laptop screenshots are scaled down further, so their rings are smaller. */
+.laptop .spot,
+.laptop .spot.active::before {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
 }
 
 /* Near the right edge the badge sits on the left so it isn't clipped. */
@@ -829,6 +1013,173 @@ button {
   padding: 16px;
   border-top: 1px solid #d5e0da;
   border-radius: 0;
+}
+
+.chat-choice {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #eef4f0;
+  color: #2a8bd6;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Browser and phone-system mock-ups for «Встановити на телефон» */
+.browser-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: #44524d;
+}
+
+.browser-page img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.browser-page b {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: #0a140f;
+}
+
+.browser-bar {
+  background: #f1f3f2;
+  border-top: 1px solid #dfe5e2;
+  padding: 12px 16px 28px;
+}
+
+.url {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+  color: #44524d;
+  font-size: 15px;
+}
+
+.browser-tools {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
+  font-style: normal;
+}
+
+.browser-tools i {
+  font-style: normal;
+  font-size: 26px;
+  color: #2a7be4;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+.sheet-bg {
+  background: rgb(10 20 15 / 0.35);
+  justify-content: flex-end;
+}
+
+.sheet {
+  background: #f4f5f5;
+  border-radius: 20px 20px 0 0;
+  padding: 14px 14px 34px;
+}
+
+.sheet-row {
+  background: #fff;
+  padding: 15px 16px;
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e7ebe9;
+}
+
+.sheet-row:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.sheet-row:last-child {
+  border-radius: 0 0 12px 12px;
+  border-bottom: 0;
+}
+
+.browser-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 44px 12px 10px;
+  background: #f1f3f2;
+}
+
+.browser-top .url {
+  flex: 1;
+}
+
+.browser-top i {
+  font-style: normal;
+  font-size: 26px;
+  color: #44524d;
+  width: 30px;
+  text-align: center;
+}
+
+.chrome-menu {
+  margin: 0 12px 0 auto;
+  width: 250px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(10 20 15 / 0.18);
+  padding: 6px 0;
+}
+
+.chrome-menu .sheet-row {
+  border: 0;
+  border-radius: 0;
+  font-size: 16px;
+  padding: 13px 18px;
+}
+
+.home-screen {
+  background: linear-gradient(160deg, #3f7a56, #1d3b2b 70%);
+  padding: 70px 22px;
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px 10px;
+}
+
+.apps span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.apps i,
+.apps img {
+  width: 62px;
+  height: 62px;
+  border-radius: 15px;
+  background: rgb(255 255 255 / 0.22);
+}
+
+.apps img {
+  background: #fff;
+  object-fit: cover;
 }
 
 /* Step panel */
