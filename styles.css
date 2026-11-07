@@ -393,6 +393,43 @@ button {
   white-space: nowrap;
 }
 
+/* Phones: one block per role — name on top, what they see below. */
+@media (max-width: 599px) {
+  .roles,
+  .roles tbody,
+  .roles tr,
+  .roles td {
+    display: block;
+  }
+
+  .roles thead {
+    display: none;
+  }
+
+  .roles tr {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .roles tr:last-child {
+    border-bottom: 0;
+  }
+
+  .roles td {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .roles td:first-child {
+    width: auto;
+    margin-bottom: 2px;
+  }
+
+  .roles a {
+    white-space: normal;
+  }
+}
+
 .modules {
   display: grid;
   gap: 14px;
