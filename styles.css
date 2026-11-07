@@ -740,6 +740,56 @@ button {
   transform: scale(1);
 }
 
+/* A section being explained gets an outline instead of a ring. */
+.area {
+  position: absolute;
+  border: 3px solid #f0c04e;
+  border-radius: 12px;
+  background: rgb(240 192 78 / 0.1);
+  box-shadow:
+    0 0 0 3px rgb(255 255 255 / 0.75),
+    0 4px 16px rgb(10 20 15 / 0.22);
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  pointer-events: none;
+}
+
+.area.active {
+  opacity: 1;
+  transform: none;
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+.area span {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #277539;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 22px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgb(10 20 15 / 0.35);
+}
+
+@keyframes glow {
+  50% {
+    box-shadow:
+      0 0 0 3px rgb(255 255 255 / 0.75),
+      0 0 0 9px rgb(240 192 78 / 0.28),
+      0 4px 16px rgb(10 20 15 / 0.22);
+  }
+}
+
 /* Laptop screenshots are scaled down further, so their rings are smaller. */
 .laptop .spot,
 .laptop .spot.active::before {
@@ -1023,6 +1073,27 @@ button {
   background: #eef4f0;
   color: #2a8bd6;
   font-weight: 600;
+  text-align: center;
+}
+
+.chat-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chat-buttons.col {
+  grid-template-columns: 1fr;
+}
+
+.chat-buttons span {
+  padding: 8px 6px;
+  border-radius: 10px;
+  background: #eef4f0;
+  color: #2a8bd6;
+  font-weight: 600;
+  font-size: 13px;
   text-align: center;
 }
 
