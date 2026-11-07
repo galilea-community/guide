@@ -14,6 +14,19 @@ Live: https://guide.galilea.com.ua/ (GitHub Pages custom domain; DNS: CNAME `gui
 | `koordynatsiia` — Координація Домів | Координатори Домів | огляд, заявки, форма заявки, Доми і Господарі, загальні матеріали, звернення і кошик, Telegram |
 | `staff` — Координаторам і адміністраторам | координатори, адміністратори | огляд і пошук, створити й скопіювати подію, команди подій, курси й теги, шаблони форм, анкети, новини, свідчення, користувачі |
 
+## Role links (send these out)
+
+Each role has one page with its lessons in order: «Початок роботи», then the role's module. Lessons opened from it lead on to the next lesson of that role and back to the page («Ваші уроки»). The device remembers the last role page it opened.
+
+| Role | Link | Path | Also suggested |
+| --- | --- | --- | --- |
+| Організатор / Помічник події | https://guide.galilea.com.ua/#/dlia/orhanizatoriv | start → podii | |
+| Господар Дому | https://guide.galilea.com.ua/#/dlia/hospodariv | start → domy | |
+| Координатор Домів | https://guide.galilea.com.ua/#/dlia/koordynatoriv-domiv | start → koordynatsiia | |
+| Координатор, адміністратор | https://guide.galilea.com.ua/#/dlia/koordynatoriv | start → staff | podii, koordynatsiia |
+
+They live in `BUNDLES` in `app.js`; the home page's role table is built from them too.
+
 ## Files
 
 - `index.html`: the page shell (fonts, header, footer).
@@ -25,7 +38,7 @@ Live: https://guide.galilea.com.ua/ (GitHub Pages custom domain; DNS: CNAME `gui
 
 A step is `{ screen, spot: [x, y], title, text }` for a button, or `{ screen, area: [x, y, w, h], … }` for a whole section (drawn as an outline). Both are in the screenshot's own pixels, so you can read coordinates straight off the image. Mock-up steps use `focus: '<data-focus name>'` instead. Copy follows the app's wording: use the exact button labels from `web-app/src/messages/uk.json`, and «адмінпанель» (never «адмінка»).
 
-Links: `#/podii` (a module), `#/podii/reiestr` (a lesson), `#/podii/reiestr/4` (a step).
+Links: `#/dlia/orhanizatoriv` (a role), `#/podii` (a module), `#/podii/reiestr` (a lesson), `#/podii/reiestr/4` (a step).
 
 ## Preview locally
 
