@@ -9,9 +9,9 @@ Live: https://guide.galilea.com.ua/ (GitHub Pages custom domain; DNS: CNAME `gui
 | Module | For | Lessons |
 | --- | --- | --- |
 | `start` — Початок роботи | everyone | вхід, як влаштована адмінпанель, профіль і пароль, Telegram-бот, встановити на телефон |
-| `podii` — Події | Організатори й Помічники | ваша подія, вкладка «Подія», відкрити реєстрацію, конструктор форми, реєстр, день події, групи, розклад, команда і повідомлення |
-| `domy` — Доми | Господарі Домів | ваш Дім, учасники, матеріали на тиждень |
-| `koordynatsiia` — Координація Домів | Координатори Домів | огляд, заявки, форма заявки, Доми і Господарі, загальні матеріали, звернення і кошик, Telegram |
+| `events` — Події | Організатори й Помічники | ваша подія, вкладка «Подія», відкрити реєстрацію, конструктор форми, реєстр, день події, групи, розклад, команда і повідомлення |
+| `houses` — Доми | Господарі Домів | ваш Дім, учасники, матеріали на тиждень |
+| `house-coordination` — Координація Домів | Координатори Домів | огляд, заявки, форма заявки, Доми і Господарі, загальні матеріали, звернення і кошик, Telegram |
 | `staff` — Координаторам і адміністраторам | координатори, адміністратори | огляд і пошук, створити й скопіювати подію, команди подій, курси й теги, шаблони форм, анкети, новини, свідчення, користувачі |
 
 ## Role links (send these out)
@@ -20,10 +20,10 @@ Each role has one page with its lessons in order: «Початок роботи�
 
 | Role | Link | Path | Also suggested |
 | --- | --- | --- | --- |
-| Організатор / Помічник події | https://guide.galilea.com.ua/#/dlia/orhanizatoriv | start → podii | |
-| Господар Дому | https://guide.galilea.com.ua/#/dlia/hospodariv | start → domy | |
-| Координатор Домів | https://guide.galilea.com.ua/#/dlia/koordynatoriv-domiv | start → koordynatsiia | |
-| Координатор, адміністратор | https://guide.galilea.com.ua/#/dlia/koordynatoriv | start → staff | podii, koordynatsiia |
+| Організатор / Помічник події | https://guide.galilea.com.ua/#/for/organizers | start → events | |
+| Господар Дому | https://guide.galilea.com.ua/#/for/house-hosts | start → houses | |
+| Координатор Домів | https://guide.galilea.com.ua/#/for/house-coordinators | start → house-coordination | |
+| Координатор, адміністратор | https://guide.galilea.com.ua/#/for/coordinators | start → staff | events, house-coordination |
 
 They live in `BUNDLES` in `app.js`; the home page's role table is built from them too.
 
@@ -31,7 +31,7 @@ They live in `BUNDLES` in `app.js`; the home page's role table is built from the
 
 - `index.html`: the page shell (fonts, header, footer).
 - `styles.css`: brand tokens and layout, light and dark; phone and laptop frames.
-- `app.js`: **all the content lives here**. `MODULES` → lessons → steps and a quiz; `FAQ`; `MOCKS` (the HTML mock-ups: sign-in email, «Про вас», Telegram chats, phone install screens); `OLD_LINKS` (redirects for the first version's `#/urok-N` links).
+- `app.js`: **all the content lives here**. `MODULES` → lessons → steps and a quiz; `FAQ`; `MOCKS` (the HTML mock-ups: sign-in email, «Про вас», Telegram chats, phone install screens); `OLD_LINKS` (redirects for the first version's `#/urok-N` links); `RENAMED` (redirects for the old transliterated routes like `#/podii/reiestr` and `#/dlia/hospodariv`; saved progress is mapped through it too).
 - `img/`: screenshots from a local stack with seeded fake data. Phone shots are 390 px wide at 2x (780 px); `desktop.jpg` is 1280 × 800.
 
 ## Editing a lesson
@@ -40,7 +40,7 @@ A step is `{ screen, spot: [x, y], title, text }` for a button, or `{ screen, ar
 
 A quiz is `{ q, options, answer, why }`, with `answer` the right option's index in `options`. The options are shuffled each time the quiz is shown, so their order in the file doesn't matter, but keep the right one from standing out by length.
 
-Links: `#/dlia/orhanizatoriv` (a role), `#/podii` (a module), `#/podii/reiestr` (a lesson), `#/podii/reiestr/4` (a step).
+Links: `#/for/organizers` (a role), `#/events` (a module), `#/events/roster` (a lesson), `#/events/roster/4` (a step). Routes are English; lesson titles stay Ukrainian. Renaming a route? Add the old one to `RENAMED`, and check `web-app/src/lib/admin/guide.ts`, which links to some lessons and role pages.
 
 ## Preview locally
 
