@@ -80,7 +80,7 @@ const MODULES = [
     summary: 'Вхід, профіль і пароль, Telegram-бот, як влаштована адмінпанель і як додати її на телефон.',
     lessons: [
       {
-        id: 'vkhid',
+        id: 'sign-in',
         title: 'Вхід',
         summary: 'Лист із посиланням — або пароль.',
         steps: [
@@ -124,7 +124,7 @@ const MODULES = [
             screen: 'login',
             spot: [390, 1076],
             title: 'Або увійдіть із паролем',
-            text: 'Пароль можна створити у своєму профілі — тоді входите без листа: <b>«Увійти з паролем»</b>. Як його створити — в уроці <a href="#/start/profil">«Профіль і пароль»</a>.',
+            text: 'Пароль можна створити у своєму профілі — тоді входите без листа: <b>«Увійти з паролем»</b>. Як його створити — в уроці <a href="#/start/profile">«Профіль і пароль»</a>.',
           },
         ],
         quiz: {
@@ -135,7 +135,7 @@ const MODULES = [
         },
       },
       {
-        id: 'yak-vlashtovana',
+        id: 'layout',
         title: 'Як влаштована адмінпанель',
         summary: 'Меню на комп’ютері і на телефоні.',
         steps: [
@@ -190,7 +190,7 @@ const MODULES = [
         },
       },
       {
-        id: 'profil',
+        id: 'profile',
         title: 'Профіль і пароль',
         summary: 'Ваші дані, пароль і вихід з усіх пристроїв.',
         steps: [
@@ -283,7 +283,7 @@ const MODULES = [
             screen: 'chat',
             focus: 'help',
             title: '/help — що вміє бот',
-            text: 'Бот показує лише команди, доступні саме вам. Як написати учасникам події — в уроці <a href="#/podii/komanda">«Команда і повідомлення»</a>.',
+            text: 'Бот показує лише команди, доступні саме вам. Як написати учасникам події — в уроці <a href="#/events/team">«Команда і повідомлення»</a>.',
           },
         ],
         quiz: {
@@ -294,7 +294,7 @@ const MODULES = [
         },
       },
       {
-        id: 'na-telefon',
+        id: 'install',
         title: 'Встановити на телефон',
         summary: 'Адмінпанель як застосунок на головному екрані.',
         steps: [
@@ -333,13 +333,13 @@ const MODULES = [
     ],
   },
   {
-    id: 'podii',
+    id: 'events',
     title: 'Події',
     who: 'Для Організаторів і Помічників',
     summary: 'Усе про вашу подію: опис, форма реєстрації, реєстр, день події, групи, розклад і команда.',
     lessons: [
       {
-        id: 'vasha-podiia',
+        id: 'your-event',
         title: 'Ваша подія',
         summary: 'Де ваші події і що на кожній вкладці.',
         steps: [
@@ -394,7 +394,7 @@ const MODULES = [
         },
       },
       {
-        id: 'podiia',
+        id: 'event-tab',
         title: 'Вкладка «Подія»',
         summary: 'Опис, дати, місця, обкладинка і видимість.',
         steps: [
@@ -455,7 +455,7 @@ const MODULES = [
         },
       },
       {
-        id: 'reiestratsiia',
+        id: 'registration',
         title: 'Відкрити реєстрацію',
         summary: 'Форма, публікація і посилання.',
         steps: [
@@ -487,7 +487,7 @@ const MODULES = [
             screen: 'form',
             spot: [235, 1398],
             title: 'Запитання й публікація',
-            text: '«Редагувати форму» (або «Створити форму») → запитання → <b>«Опублікувати»</b>. Як це зробити — в уроці <a href="#/podii/konstruktor">«Конструктор форми»</a>.',
+            text: '«Редагувати форму» (або «Створити форму») → запитання → <b>«Опублікувати»</b>. Як це зробити — в уроці <a href="#/events/form-builder">«Конструктор форми»</a>.',
           },
           {
             screen: 'form',
@@ -510,7 +510,7 @@ const MODULES = [
         },
       },
       {
-        id: 'konstruktor',
+        id: 'form-builder',
         title: 'Конструктор форми',
         summary: 'Запитання, розділи, підказки й умови.',
         steps: [
@@ -577,7 +577,7 @@ const MODULES = [
         },
       },
       {
-        id: 'reiestr',
+        id: 'roster',
         title: 'Реєстр',
         summary: 'Хто записався і що з ними робити.',
         steps: [
@@ -644,7 +644,7 @@ const MODULES = [
         },
       },
       {
-        id: 'den-podii',
+        id: 'event-day',
         title: 'День події',
         summary: 'Позначте, хто прийшов, з телефона.',
         steps: [
@@ -699,7 +699,7 @@ const MODULES = [
         },
       },
       {
-        id: 'hrupy',
+        id: 'groups',
         title: 'Групи',
         summary: 'Розділіть учасників і призначте аніматорів.',
         steps: [
@@ -754,7 +754,7 @@ const MODULES = [
         },
       },
       {
-        id: 'rozklad',
+        id: 'schedule',
         title: 'Розклад',
         summary: 'Запис на сеанс — для «Заступницької молитви».',
         steps: [
@@ -803,7 +803,7 @@ const MODULES = [
         },
       },
       {
-        id: 'komanda',
+        id: 'team',
         title: 'Команда і повідомлення',
         summary: 'Помічники, доступ і повідомлення учасникам.',
         steps: [
@@ -854,13 +854,13 @@ const MODULES = [
     ],
   },
   {
-    id: 'domy',
+    id: 'houses',
     title: 'Доми',
     who: 'Для Господарів Домів',
     summary: 'Ваш Дім: час зустрічей, учасники і матеріали на тиждень.',
     lessons: [
       {
-        id: 'vash-dim',
+        id: 'your-house',
         title: 'Ваш Дім',
         summary: 'Де ваш Дім і що в ньому можна змінити.',
         steps: [
@@ -897,7 +897,7 @@ const MODULES = [
         },
       },
       {
-        id: 'uchasnyky',
+        id: 'participants',
         title: 'Учасники Дому',
         summary: 'Додати, змінити, позначити бейджем.',
         steps: [
@@ -952,7 +952,7 @@ const MODULES = [
         },
       },
       {
-        id: 'materialy',
+        id: 'materials',
         title: 'Матеріали на тиждень',
         summary: 'Від спільноти — і ваші власні.',
         steps: [
@@ -997,13 +997,13 @@ const MODULES = [
     ],
   },
   {
-    id: 'koordynatsiia',
+    id: 'house-coordination',
     title: 'Координація Домів',
     who: 'Для Координаторів Домів',
     summary: 'Заявки до Домів, форма заявки, Доми та їхні Господарі, загальні матеріали, звернення і кошик.',
     lessons: [
       {
-        id: 'ohliad',
+        id: 'overview',
         title: 'Огляд',
         summary: 'Що ви бачите після входу.',
         steps: [
@@ -1052,7 +1052,7 @@ const MODULES = [
         },
       },
       {
-        id: 'zaiavky',
+        id: 'applications',
         title: 'Заявки до Домів',
         summary: 'Хто хоче приєднатися до Дому.',
         steps: [
@@ -1113,7 +1113,7 @@ const MODULES = [
         },
       },
       {
-        id: 'forma-zaiavky',
+        id: 'application-form',
         title: 'Форма заявки',
         summary: 'Запитання сторінки «Приєднатися до Дому».',
         steps: [
@@ -1139,7 +1139,7 @@ const MODULES = [
             screen: 'hcAppform',
             spot: [277, 1114],
             title: 'Редагувати запитання',
-            text: 'Той самий конструктор, що й у подій: розділи, підказки, умови показу — див. урок <a href="#/podii/konstruktor">«Конструктор форми»</a>. Після змін — «Опублікувати».',
+            text: 'Той самий конструктор, що й у подій: розділи, підказки, умови показу — див. урок <a href="#/events/form-builder">«Конструктор форми»</a>. Після змін — «Опублікувати».',
           },
           {
             screen: 'hcAppform',
@@ -1156,7 +1156,7 @@ const MODULES = [
         },
       },
       {
-        id: 'domy',
+        id: 'houses',
         title: 'Доми і Господарі',
         summary: 'Створити Дім, змінити дані, призначити Господаря.',
         steps: [
@@ -1223,7 +1223,7 @@ const MODULES = [
         },
       },
       {
-        id: 'materialy',
+        id: 'materials',
         title: 'Загальні матеріали',
         summary: 'Матеріали на тиждень для всіх Домів.',
         steps: [
@@ -1272,7 +1272,7 @@ const MODULES = [
         },
       },
       {
-        id: 'zvernennia',
+        id: 'feedback',
         title: 'Звернення і кошик',
         summary: 'Форма зв’язку і як повернути видалене.',
         steps: [
@@ -1366,7 +1366,7 @@ const MODULES = [
     summary: 'Огляд і пошук, події, команди, курси й теги, шаблони форм, анкети, новини, свідчення і користувачі. Доми, заявки й звернення — у модулі «Координація Домів».',
     lessons: [
       {
-        id: 'ohliad',
+        id: 'overview',
         title: 'Огляд і пошук',
         summary: 'Головна сторінка і швидкий пошук.',
         steps: [
@@ -1415,7 +1415,7 @@ const MODULES = [
         },
       },
       {
-        id: 'podii',
+        id: 'events',
         title: 'Створити і скопіювати подію',
         summary: 'Нова подія, тип, теги і копія.',
         steps: [
@@ -1429,7 +1429,7 @@ const MODULES = [
             screen: 'adEventNew',
             spot: [390, 634],
             title: 'Назва і опис',
-            text: 'Як в уроці <a href="#/podii/podiia">«Вкладка «Подія»»</a> — назва, опис, примітка, дата, місце.',
+            text: 'Як в уроці <a href="#/events/event-tab">«Вкладка «Подія»»</a> — назва, опис, примітка, дата, місце.',
           },
           {
             screen: 'adEventNew',
@@ -1476,7 +1476,7 @@ const MODULES = [
         },
       },
       {
-        id: 'komandy',
+        id: 'event-teams',
         title: 'Команди подій',
         summary: 'Організатори, Помічники і доступ.',
         steps: [
@@ -1513,7 +1513,7 @@ const MODULES = [
         },
       },
       {
-        id: 'kursy-tehy',
+        id: 'courses-tags',
         title: 'Курси й теги',
         summary: 'Програми на сайті та фільтри календаря.',
         steps: [
@@ -1556,7 +1556,7 @@ const MODULES = [
         },
       },
       {
-        id: 'shablony',
+        id: 'form-templates',
         title: 'Шаблони форм',
         summary: 'Готові форми реєстрації для подій.',
         steps: [
@@ -1570,7 +1570,7 @@ const MODULES = [
             screen: 'adTemplates',
             spot: [190, 526],
             title: 'Новий шаблон',
-            text: 'Той самий <a href="#/podii/konstruktor">конструктор форми</a>, що й у події.',
+            text: 'Той самий <a href="#/events/form-builder">конструктор форми</a>, що й у події.',
           },
           {
             screen: 'adTemplates',
@@ -1593,7 +1593,7 @@ const MODULES = [
         },
       },
       {
-        id: 'ankety',
+        id: 'forms',
         title: 'Анкети',
         summary: 'Окремі форми: опитування, волонтери, заявки.',
         steps: [
@@ -1642,7 +1642,7 @@ const MODULES = [
         },
       },
       {
-        id: 'novyny',
+        id: 'news',
         title: 'Новини',
         summary: 'Дописи стрічки новин і чернетки з Facebook.',
         steps: [
@@ -1691,7 +1691,7 @@ const MODULES = [
         },
       },
       {
-        id: 'svidchennia',
+        id: 'testimonies',
         title: 'Свідчення',
         summary: 'Історії з сайту: прочитати й опублікувати.',
         steps: [
@@ -1734,7 +1734,7 @@ const MODULES = [
         },
       },
       {
-        id: 'korystuvachi',
+        id: 'users',
         title: 'Користувачі',
         summary: 'Запрошення і ролі.',
         steps: [
@@ -1772,7 +1772,7 @@ const MODULES = [
             screen: 'adUsers',
             spot: [304, 566],
             title: 'А Організатори?',
-            text: 'Організаторів і Помічників тут не призначають — їх додають у вкладці «Команда» події. Див. урок <a href="#/staff/komandy">«Команди подій»</a>.',
+            text: 'Організаторів і Помічників тут не призначають — їх додають у вкладці «Команда» події. Див. урок <a href="#/staff/event-teams">«Команди подій»</a>.',
           },
         ],
         quiz: {
@@ -1788,45 +1788,99 @@ const MODULES = [
 
 // Links shared before the guide was split into modules.
 const OLD_LINKS = {
-  1: 'start/vkhid',
-  2: 'podii/vasha-podiia',
-  3: 'podii/reiestratsiia',
-  4: 'podii/reiestr',
-  5: 'podii/den-podii',
+  1: 'start/sign-in',
+  2: 'events/your-event',
+  3: 'events/registration',
+  4: 'events/roster',
+  5: 'events/event-day',
   6: 'start/telegram',
 };
 
-// One link per role to send out: #/dlia/<id>. `modules` is the path in
+// Routes from before the English slugs (transliterated Ukrainian), old → new.
+// A lesson is looked up first, then its module, so `koordynatsiia/telegram`
+// becomes `house-coordination/telegram`. Keeps shared links and saved
+// progress working.
+const RENAMED = {
+  'start/vkhid': 'start/sign-in',
+  'start/yak-vlashtovana': 'start/layout',
+  'start/profil': 'start/profile',
+  'start/na-telefon': 'start/install',
+  'podii/vasha-podiia': 'events/your-event',
+  'podii/podiia': 'events/event-tab',
+  'podii/reiestratsiia': 'events/registration',
+  'podii/konstruktor': 'events/form-builder',
+  'podii/reiestr': 'events/roster',
+  'podii/den-podii': 'events/event-day',
+  'podii/hrupy': 'events/groups',
+  'podii/rozklad': 'events/schedule',
+  'podii/komanda': 'events/team',
+  'domy/vash-dim': 'houses/your-house',
+  'domy/uchasnyky': 'houses/participants',
+  'domy/materialy': 'houses/materials',
+  'koordynatsiia/ohliad': 'house-coordination/overview',
+  'koordynatsiia/zaiavky': 'house-coordination/applications',
+  'koordynatsiia/forma-zaiavky': 'house-coordination/application-form',
+  'koordynatsiia/domy': 'house-coordination/houses',
+  'koordynatsiia/materialy': 'house-coordination/materials',
+  'koordynatsiia/zvernennia': 'house-coordination/feedback',
+  'staff/ohliad': 'staff/overview',
+  'staff/podii': 'staff/events',
+  'staff/komandy': 'staff/event-teams',
+  'staff/kursy-tehy': 'staff/courses-tags',
+  'staff/shablony': 'staff/form-templates',
+  'staff/ankety': 'staff/forms',
+  'staff/novyny': 'staff/news',
+  'staff/svidchennia': 'staff/testimonies',
+  'staff/korystuvachi': 'staff/users',
+  podii: 'events',
+  domy: 'houses',
+  koordynatsiia: 'house-coordination',
+  'dlia/orhanizatoriv': 'for/organizers',
+  'dlia/hospodariv': 'for/house-hosts',
+  'dlia/koordynatoriv-domiv': 'for/house-coordinators',
+  'dlia/koordynatoriv': 'for/coordinators',
+};
+// The new route for an old one, keeping a step number; null if it isn't old.
+function renamed(path) {
+  const parts = path.split('/');
+  for (const n of [2, 1]) {
+    const to = RENAMED[parts.slice(0, n).join('/')];
+    if (typeof to === 'string') return [to, ...parts.slice(n)].join('/');
+  }
+  return null;
+}
+
+// One link per role to send out: #/for/<id>. `modules` is the path in
 // order; `also` lists modules worth a look but not part of the path.
 const BUNDLES = [
   {
-    id: 'orhanizatoriv',
+    id: 'organizers',
     title: 'Організаторам і Помічникам',
     who: 'Організатор або Помічник події',
     sees: 'Свої події: реєстр, форму, відвідуваність, групи, команду.',
-    modules: ['start', 'podii'],
+    modules: ['start', 'events'],
   },
   {
-    id: 'hospodariv',
+    id: 'house-hosts',
     title: 'Господарям Домів',
     who: 'Господар Дому',
     sees: 'Свій Дім: учасників, час зустрічей і матеріали на тиждень.',
-    modules: ['start', 'domy'],
+    modules: ['start', 'houses'],
   },
   {
-    id: 'koordynatoriv-domiv',
+    id: 'house-coordinators',
     title: 'Координаторам Домів',
     who: 'Координатор Домів',
     sees: 'Усі Доми, заявки до Домів, загальні матеріали, звернення.',
-    modules: ['start', 'koordynatsiia'],
+    modules: ['start', 'house-coordination'],
   },
   {
-    id: 'koordynatoriv',
+    id: 'coordinators',
     title: 'Координаторам і адміністраторам',
     who: 'Координатори й адміністратори',
     sees: 'Усе: події, курси, анкети, новини, свідчення, Доми, користувачів.',
     modules: ['start', 'staff'],
-    also: ['podii', 'koordynatsiia'],
+    also: ['events', 'house-coordination'],
   },
 ];
 
@@ -1853,7 +1907,8 @@ const FAQ = [
 const KEY = 'galilea-guide-done-v2';
 function loadDone() {
   try {
-    return new Set(JSON.parse(localStorage.getItem(KEY) || '[]'));
+    const keys = JSON.parse(localStorage.getItem(KEY) || '[]');
+    return new Set(keys.map((k) => renamed(k) || k));
   } catch {
     return new Set();
   }
@@ -1877,6 +1932,8 @@ try {
 } catch {
   /* private mode: lessons just lead back to all modules */
 }
+const movedRole = role && renamed(`dlia/${role}`);
+if (movedRole) role = movedRole.split('/')[1];
 const mod = (id) => MODULES.find((x) => x.id === id);
 const bundleFor = (m) => {
   const b = BUNDLES.find((x) => x.id === role);
@@ -1885,7 +1942,7 @@ const bundleFor = (m) => {
 const pathOf = (b) => b.modules.flatMap((id) => mod(id).lessons.map((l) => ({ m: mod(id), l })));
 const rootCrumb = (m, arrow = '') => {
   const b = bundleFor(m);
-  return b ? `<a href="#/dlia/${b.id}">${arrow}Ваші уроки</a>` : `<a href="#/">${arrow}Усі модулі</a>`;
+  return b ? `<a href="#/for/${b.id}">${arrow}Ваші уроки</a>` : `<a href="#/">${arrow}Усі модулі</a>`;
 };
 
 // ===================================================================
@@ -1911,8 +1968,13 @@ function route() {
     location.replace(`#/${OLD_LINKS[old[1]]}`);
     return;
   }
+  const moved = renamed(hash);
+  if (moved) {
+    location.replace(`#/${moved}`);
+    return;
+  }
   const [mId, lId, stepNo] = hash.split('/');
-  const b = mId === 'dlia' && BUNDLES.find((x) => x.id === lId);
+  const b = mId === 'for' && BUNDLES.find((x) => x.id === lId);
   if (b) return renderBundle(b);
   const m = MODULES.find((x) => x.id === mId);
   if (m && lId) {
@@ -1943,7 +2005,7 @@ function renderHome() {
         <table class="roles">
           <thead><tr><th>Хто ви</th><th>Що бачите</th></tr></thead>
           <tbody>
-            ${BUNDLES.map((b) => `<tr><td>${h(b.who)}</td><td>${h(b.sees)} <a href="#/dlia/${b.id}">Уроки для вас →</a></td></tr>`).join('')}
+            ${BUNDLES.map((b) => `<tr><td>${h(b.who)}</td><td>${h(b.sees)} <a href="#/for/${b.id}">Уроки для вас →</a></td></tr>`).join('')}
           </tbody>
         </table>
       </div>
@@ -2171,7 +2233,7 @@ function finishLesson() {
     const nextModule = i >= 0 && mod(b.modules[i + 1]);
     box.innerHTML = nextModule
       ? `<p><b>Модуль «${h(m.title)}» пройдено!</b> Далі — «${h(nextModule.title)}».</p><a class="btn btn-primary" href="#/${nextModule.id}/${nextModule.lessons[0].id}">Наступний урок →</a>`
-      : `<p><b>Модуль «${h(m.title)}» пройдено!</b>${i >= 0 ? ' Це останній модуль для вашої ролі.' : ''}</p><a class="btn btn-primary" href="#/dlia/${b.id}">До ваших уроків</a>`;
+      : `<p><b>Модуль «${h(m.title)}» пройдено!</b>${i >= 0 ? ' Це останній модуль для вашої ролі.' : ''}</p><a class="btn btn-primary" href="#/for/${b.id}">До ваших уроків</a>`;
   } else {
     const mi = MODULES.indexOf(m);
     const nextModule = MODULES.slice(mi + 1).find((x) => moduleDone(x) < x.lessons.length);
