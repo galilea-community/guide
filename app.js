@@ -66,6 +66,10 @@ const SCREENS = {
   about: { mock: 'about' },
   chat: { mock: 'chat' },
   chatMessage: { mock: 'chatMessage' },
+  hostFind: { mock: 'hostFind' },
+  hostGroup: { mock: 'hostGroup' },
+  hostAttendance: { mock: 'hostAttendance' },
+  hostLogout: { mock: 'hostLogout' },
   safari: { mock: 'safari' },
   shareSheet: { mock: 'shareSheet' },
   chrome: { mock: 'chrome' },
@@ -737,7 +741,7 @@ const MODULES = [
             screen: 'groups',
             spot: [412, 1520],
             title: 'Аніматор',
-            text: 'Додайте аніматора: email (отримає лист і доступ до списку групи) або просто ім’я й телефон. З Telegram-ботом аніматор бачить свою групу командою /group.',
+            text: 'Додайте аніматора: email (отримає лист і доступ до списку групи) або просто ім’я й телефон. За цим телефоном аніматор у Telegram-боті бачить свою групу (/group) і відмічає, хто прийшов. Надішліть йому <a href="#/for/group-hosts">уроки для аніматорів</a>.',
           },
           {
             screen: 'groups',
@@ -1784,6 +1788,174 @@ const MODULES = [
       },
     ],
   },
+  {
+    // Аніматори have no account: everything happens in the Telegram bot (docs ADR-0030).
+    id: 'group-hosts',
+    title: 'Група в Telegram-боті',
+    who: 'Для аніматорів груп',
+    summary: 'Ваша група в Telegram-боті: учасники, телефони й відмітка присутності — без входу на сайт.',
+    lessons: [
+      {
+        id: 'find-your-group',
+        title: 'Знайдіть свою групу',
+        summary: 'Бот упізнає вас за номером телефону.',
+        steps: [
+          {
+            screen: 'hostFind',
+            focus: 'command',
+            title: 'Надішліть /group',
+            text: 'Відкрийте бота <a href="https://t.me/galilea_community_bot" target="_blank" rel="noopener">@galilea_community_bot</a>, натисніть <b>«Start»</b> і надішліть /group. Акаунт на сайті не потрібен.',
+          },
+          {
+            screen: 'hostFind',
+            focus: 'share',
+            title: '«📱 Поділитися номером»',
+            text: 'Кнопка внизу, під полем для тексту. Telegram надішле саме ваш номер — той, яким ви користуєтеся в Telegram.',
+          },
+          {
+            screen: 'hostFind',
+            focus: 'pick',
+            title: 'Ваші групи',
+            text: 'Бот звіряє номер із тим, що організатори вказали для аніматора, і показує ваші групи. Натисніть групу, щоб відкрити її.',
+          },
+          {
+            screen: 'hostFind',
+            title: 'Бот не знайшов групу?',
+            text: 'Отже, організатори вказали інший номер або ще не додали вас. Попросіть їх указати ваш номер у групі (вкладка «Групи» → «Аніматор») і надішліть /group ще раз.',
+          },
+        ],
+        quiz: {
+          q: 'За яким номером бот знаходить вашу групу?',
+          options: ['За тим, що організатори вказали для аніматора', 'За номером будь-кого з учасників групи', 'За номером організатора події'],
+          answer: 0,
+          why: 'Бот звіряє номер, яким ви поділилися, із номером аніматора, що вказали організатори.',
+        },
+      },
+      {
+        id: 'members',
+        title: 'Учасники групи',
+        summary: 'Імена й телефони вашої групи.',
+        steps: [
+          {
+            screen: 'hostGroup',
+            focus: 'list',
+            title: 'Хто у вашій групі',
+            text: 'Імена й телефони — як люди вказали їх під час реєстрації. Натисніть номер, щоб подзвонити чи скопіювати його.',
+          },
+          {
+            screen: 'hostGroup',
+            focus: 'waitlist',
+            title: '⏳ — список очікування',
+            text: 'Ця людина ще чекає на місце. Скасовані реєстрації бот не показує.',
+          },
+          {
+            screen: 'hostGroup',
+            focus: 'back',
+            title: '«← Назад»',
+            text: 'Повертає до списку ваших груп. Бот змінює те саме повідомлення, тож чат не захаращується.',
+          },
+          {
+            screen: 'hostGroup',
+            focus: 'list',
+            title: 'Номери — лише для групи',
+            text: 'Телефони учасників потрібні, щоб зв’язатися з групою. Не пересилайте список далі.',
+          },
+        ],
+        quiz: {
+          q: 'Що означає ⏳ біля імені?',
+          options: ['Людина ще в списку очікування', 'Людина спізнюється на зустріч', 'Людину ще не відмітили сьогодні'],
+          answer: 0,
+          why: '⏳ — реєстрація в списку очікування; таку людину теж можна відмітити, якщо прийшла.',
+        },
+      },
+      {
+        id: 'attendance',
+        title: 'Відмітити присутність',
+        summary: 'Хто прийшов — просто в боті.',
+        steps: [
+          {
+            screen: 'hostGroup',
+            focus: 'lists',
+            title: 'Оберіть список',
+            text: 'Під учасниками — списки прибуття: назва й дата. Їх створюють організатори на сайті. Бот показує сьогоднішні й минулі, до п’яти останніх.',
+          },
+          {
+            screen: 'hostAttendance',
+            focus: 'unmarked',
+            title: 'Прийшов — торкніться',
+            text: '⬜ стає ✅. Позначка зберігається одразу — організатори побачать її на сайті.',
+          },
+          {
+            screen: 'hostAttendance',
+            focus: 'marked',
+            title: 'Помилилися? Ще раз',
+            text: 'Торкніться ✅, щоб зняти позначку — навіть ту, яку поставили організатори на вході.',
+          },
+          {
+            screen: 'hostAttendance',
+            focus: 'count',
+            title: 'Лічильник',
+            text: 'Скільки людей групи вже відмічено. Кожне торкання показує свіжий стан — разом із тими, кого відмітили на вході.',
+          },
+          {
+            screen: 'hostAttendance',
+            focus: 'back',
+            title: '«← Назад» до групи',
+            text: 'Повертає до учасників і списків — щоб обрати інший день.',
+          },
+          {
+            screen: 'hostAttendance',
+            focus: 'sheet',
+            title: 'Організатори бачать, хто відмітив',
+            text: 'На сайті біля людини буде час і ваше ім’я — так, як організатори вписали вас у групу.',
+          },
+        ],
+        quiz: {
+          q: 'Кнопки зі списком на сьогодні немає. Що робити?',
+          options: ['Попросити організаторів додати список на сайті', 'Створити список самому в боті', 'Відмітити людей у вчорашньому списку'],
+          answer: 0,
+          why: 'Списки прибуття створюють організатори; у боті ви лише відмічаєте людей.',
+        },
+      },
+      {
+        id: 'logout',
+        title: 'Вийти з бота',
+        summary: '/logout — і бот забуде ваш номер.',
+        steps: [
+          {
+            screen: 'hostLogout',
+            focus: 'command',
+            title: 'Надішліть /logout',
+            text: 'Коли ви більше не аніматор або передаєте телефон іншій людині.',
+          },
+          {
+            screen: 'hostLogout',
+            focus: 'confirm',
+            title: 'Бот перепитає',
+            text: 'Він перелічить, що забуде: ваш номер — і акаунт сайту, якщо ви його підключали.',
+          },
+          {
+            screen: 'hostLogout',
+            focus: 'yes',
+            title: '«🚪 Так, вийти»',
+            text: 'Готово. Щоб повернутися, надішліть /group і знову поділіться номером.',
+          },
+          {
+            screen: 'hostLogout',
+            focus: 'stop',
+            title: 'Нагадування лишаються',
+            text: 'Нагадування про події, на які ви зареєструвалися самі, /logout не вимикає — для цього є /stop.',
+          },
+        ],
+        quiz: {
+          q: 'Що робить /logout?',
+          options: ['Бот забуває ваш номер і більше не показує групу', 'Прибирає вас з аніматорів групи на сайті', 'Вимикає нагадування про всі ваші події'],
+          answer: 0,
+          why: '/logout лише відключає вас від бота: на сайті ви й далі аніматор групи.',
+        },
+      },
+    ],
+  },
 ];
 
 // Links shared before the guide was split into modules.
@@ -1882,6 +2054,15 @@ const BUNDLES = [
     modules: ['start', 'staff'],
     also: ['events', 'house-coordination'],
   },
+  {
+    id: 'group-hosts',
+    title: 'Аніматорам груп',
+    who: 'Аніматор групи на події',
+    sees: 'Свою групу в Telegram-боті: учасників, телефони й відмітку присутності.',
+    // Аніматори never open the admin panel: the role page says so instead of «В адмінпанелі ви бачите…».
+    lead: 'Адмінпанель вам не потрібна: ваша група — у Telegram-боті «Галилеї». Ось уроки для вас — по черзі, кожен на кілька хвилин.',
+    modules: ['group-hosts'],
+  },
 ];
 
 const FAQ = [
@@ -1898,6 +2079,8 @@ const FAQ = [
   ['Не можу змінити адресу чи назву Дому', 'Це робить координатор. Господар змінює день і час зустрічей.'],
   ['Випадково видалив заявку, звернення чи учасника', 'Відкрийте «Кошик» → «⋯» → «Відновити». Видалене зберігається там 30 днів.'],
   ['Не бачу розділу «Користувачі» чи «Події»', 'Кожна роль бачить лише свої розділи. Якщо вам потрібен доступ — напишіть адміністраторові.'],
+  ['Аніматор: бот пише «Групи з таким номером аніматора не знайдено»', 'Організатори мали вказати у вашій групі саме той номер, яким ви користуєтеся в Telegram (вкладка «Групи» → «Аніматор»). Попросіть їх перевірити номер і надішліть /group ще раз.'],
+  ['Аніматор: у боті немає списку прибуття', 'Списки створюють організатори на вкладці «Відвідуваність». Список на майбутній день з’явиться в боті в сам день.'],
   ['Знайшли помилку або маєте ідею', 'Натисніть «Запропонувати покращення»: на комп’ютері — внизу меню зліва, на телефоні — у меню під аватаром.'],
 ];
 
@@ -2077,7 +2260,7 @@ function renderBundle(b) {
         <nav class="crumbs"><a href="#/">← Усі модулі</a></nav>
         <p class="eyebrow">Посібник для вашої ролі</p>
         <h1>${h(b.title)}</h1>
-        <p class="lead">В адмінпанелі ви бачите ${h(sees)} Ось уроки для вас — по черзі, кожен на кілька хвилин.</p>
+        <p class="lead">${b.lead ? h(b.lead) : `В адмінпанелі ви бачите ${h(sees)} Ось уроки для вас — по черзі, кожен на кілька хвилин.`}</p>
         <div class="progress">
           <a class="btn btn-primary" href="#/${next.m.id}/${next.l.id}">${cta} →</a>
           ${bar(n, path.length, 'Пройдено уроків')}
@@ -2380,6 +2563,63 @@ const MOCKS = {
           <span class="chat-choice">Осінні реколекції «Повернення» · 👥 5</span>
         </div>
         <div class="bubble me" data-focus="text">Нагадуємо: збір у п’ятницю о 18:00 біля входу. Візьміть Біблію і зручне взуття 🙏</div>
+      </div>
+    </div>`,
+  hostFind: () => `
+    <div class="mock chat">
+      <div class="chat-head">
+        <img src="img/logo.jpg" alt="">
+        <span><b>Галилея</b><small>бот</small></span>
+      </div>
+      <div class="chat-body">
+        <div class="bubble me" data-focus="command">/group</div>
+        <div class="bubble">👥 <b>Моя група</b><br>Якщо ви аніматор групи, поділіться номером телефону — тим, який ви дали організаторам. За ним я знайду вашу групу.</div>
+        <div class="bubble me">📱 <b>Марта Іваненко</b><br>+380 50 999 00 11</div>
+        <div class="bubble">✅ Дякую! Ваші групи знайдено.</div>
+        <div class="bubble" data-focus="pick">👥 <b>Ваші групи</b><br>Оберіть групу, щоб побачити її учасників.
+          <span class="chat-choice">Група 1 · Осінні реколекції… · 👥 3</span>
+        </div>
+      </div>
+      <div class="start-btn" data-focus="share">📱 Поділитися номером</div>
+    </div>`,
+  hostGroup: () => `
+    <div class="mock chat">
+      <div class="chat-head">
+        <img src="img/logo.jpg" alt="">
+        <span><b>Галилея</b><small>бот</small></span>
+      </div>
+      <div class="chat-body">
+        <div class="bubble">
+          <span class="line" data-focus="list">👥 <b>Група 1</b> · Осінні реколекції «Повернення»<br><br>1. Богдан Лисенко — +380631234502<br>2. Ірина Ткаченко — +380671110005<br><span data-focus="waitlist">3. Софія Гнатюк — +380631234501 ⏳ у списку очікування</span></span>
+          <span class="line">✅ Щоб відмітити присутність, оберіть список нижче.</span>
+          <span class="chat-buttons col" data-focus="lists"><span>9 листопада</span><span>Зустріч знайомства · 2 листопада</span></span>
+          <span class="chat-buttons col"><span data-focus="back">← Назад</span></span>
+        </div>
+      </div>
+    </div>`,
+  hostAttendance: () => `
+    <div class="mock chat">
+      <div class="chat-head">
+        <img src="img/logo.jpg" alt="">
+        <span><b>Галилея</b><small>бот</small></span>
+      </div>
+      <div class="chat-body">
+        <div class="bubble" data-focus="sheet">✅ <b>9 листопада</b><br>👥 Група 1 · Осінні реколекції «Повернення»<br><br><span data-focus="count">Відмічено: <b>2</b> з 3</span><br>Торкніться імені, щоб відмітити або зняти позначку.
+          <span class="chat-buttons col"><span data-focus="marked">✅ Богдан Лисенко</span><span data-focus="unmarked">⬜ Ірина Ткаченко</span><span>✅ Софія Гнатюк ⏳</span><span data-focus="back">← Назад</span></span>
+        </div>
+      </div>
+    </div>`,
+  hostLogout: () => `
+    <div class="mock chat">
+      <div class="chat-head">
+        <img src="img/logo.jpg" alt="">
+        <span><b>Галилея</b><small>бот</small></span>
+      </div>
+      <div class="chat-body">
+        <div class="bubble me" data-focus="command">/logout</div>
+        <div class="bubble" data-focus="confirm">🚪 <b>Вийти з бота?</b><br><br>• Забуду ваш номер: /group не знайде ваших груп, доки не поділитеся ним знову.<br><br><span data-focus="stop">Нагадування про події це не вимкне — для цього є /stop.</span>
+          <span class="chat-buttons two"><span data-focus="yes">🚪 Так, вийти</span><span>Скасувати</span></span>
+        </div>
       </div>
     </div>`,
   chatApplications: () => `

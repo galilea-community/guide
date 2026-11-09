@@ -1124,6 +1124,10 @@ button {
   grid-template-columns: 1fr;
 }
 
+.chat-buttons.two {
+  grid-template-columns: 1fr 1fr;
+}
+
 .chat-buttons span {
   padding: 8px 6px;
   border-radius: 10px;

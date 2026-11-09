@@ -13,6 +13,7 @@ Live: https://guide.galilea.com.ua/ (GitHub Pages custom domain; DNS: CNAME `gui
 | `houses` — Доми | Господарі Домів | ваш Дім, учасники, матеріали на тиждень |
 | `house-coordination` — Координація Домів | Координатори Домів | огляд, заявки, форма заявки, Доми і Господарі, загальні матеріали, звернення і кошик, Telegram |
 | `staff` — Координаторам і адміністраторам | координатори, адміністратори | огляд і пошук, створити й скопіювати подію, команди подій, курси й теги, шаблони форм, анкети, новини, свідчення, користувачі |
+| `group-hosts` — Група в Telegram-боті | аніматори груп (без акаунта) | знайти свою групу, учасники групи, відмітити присутність, вийти з бота |
 
 ## Role links (send these out)
 
@@ -24,14 +25,15 @@ Each role has one page with its lessons in order: «Початок роботи�
 | Господар Дому | https://guide.galilea.com.ua/#/for/house-hosts | start → houses | |
 | Координатор Домів | https://guide.galilea.com.ua/#/for/house-coordinators | start → house-coordination | |
 | Координатор, адміністратор | https://guide.galilea.com.ua/#/for/coordinators | start → staff | events, house-coordination |
+| Аніматор групи | https://guide.galilea.com.ua/#/for/group-hosts | group-hosts (no «Початок роботи»: аніматори never sign in) | |
 
-They live in `BUNDLES` in `app.js`; the home page's role table is built from them too.
+They live in `BUNDLES` in `app.js`; the home page's role table is built from them too. A bundle's optional `lead` replaces the role page's «В адмінпанелі ви бачите…» line (the аніматор page uses it).
 
 ## Files
 
 - `index.html`: the page shell (fonts, header, footer).
 - `styles.css`: brand tokens and layout, light and dark; phone and laptop frames.
-- `app.js`: **all the content lives here**. `MODULES` → lessons → steps and a quiz; `FAQ`; `MOCKS` (the HTML mock-ups: sign-in email, «Про вас», Telegram chats, phone install screens); `OLD_LINKS` (redirects for the first version's `#/urok-N` links); `RENAMED` (redirects for the old transliterated routes like `#/podii/reiestr` and `#/dlia/hospodariv`; saved progress is mapped through it too).
+- `app.js`: **all the content lives here**. `MODULES` → lessons → steps and a quiz; `FAQ`; `MOCKS` (the HTML mock-ups: sign-in email, «Про вас», Telegram chats incl. the аніматор's /group, attendance and /logout, phone install screens); `OLD_LINKS` (redirects for the first version's `#/urok-N` links); `RENAMED` (redirects for the old transliterated routes like `#/podii/reiestr` and `#/dlia/hospodariv`; saved progress is mapped through it too).
 - `img/`: screenshots from a local stack with seeded fake data. Phone shots are 390 px wide at 2x (780 px); `desktop.jpg` is 1280 × 800.
 
 ## Editing a lesson
