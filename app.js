@@ -1840,13 +1840,7 @@ const MODULES = [
             screen: 'hostGroup',
             focus: 'list',
             title: 'Хто у вашій групі',
-            text: 'Імена й телефони — як люди вказали їх під час реєстрації. Натисніть номер, щоб подзвонити чи скопіювати його.',
-          },
-          {
-            screen: 'hostGroup',
-            focus: 'waitlist',
-            title: '⏳ — список очікування',
-            text: 'Ця людина ще чекає на місце. Скасовані реєстрації бот не показує.',
+            text: 'Імена й телефони — як люди вказали їх під час реєстрації. Натисніть номер, щоб подзвонити чи скопіювати його. Скасовані реєстрації бот не показує.',
           },
           {
             screen: 'hostGroup',
@@ -1862,10 +1856,10 @@ const MODULES = [
           },
         ],
         quiz: {
-          q: 'Що означає ⏳ біля імені?',
-          options: ['Людина ще в списку очікування', 'Людина спізнюється на зустріч', 'Людину ще не відмітили сьогодні'],
+          q: 'Для чого телефони учасників у боті?',
+          options: ['Щоб зв’язатися з вашою групою', 'Щоб переслати список у загальний чат', 'Щоб передати іншим аніматорам'],
           answer: 0,
-          why: '⏳ — реєстрація в списку очікування; таку людину теж можна відмітити, якщо прийшла.',
+          why: 'Номери потрібні лише вам — щоб зв’язатися з групою. Не пересилайте список далі.',
         },
       },
       {
@@ -2590,7 +2584,7 @@ const MOCKS = {
       </div>
       <div class="chat-body">
         <div class="bubble">
-          <span class="line" data-focus="list">👥 <b>Група 1</b> · Осінні реколекції «Повернення»<br><br>1. Богдан Лисенко — +380631234502<br>2. Ірина Ткаченко — +380671110005<br><span data-focus="waitlist">3. Софія Гнатюк — +380631234501 ⏳ у списку очікування</span></span>
+          <span class="line" data-focus="list">👥 <b>Група 1</b> · Осінні реколекції «Повернення»<br><br>1. Богдан Лисенко — +380631234502<br>2. Ірина Ткаченко — +380671110005<br>3. Софія Гнатюк — +380631234501</span>
           <span class="line">✅ Щоб відмітити присутність, оберіть список нижче.</span>
           <span class="chat-buttons col" data-focus="lists"><span>9 листопада</span><span>Зустріч знайомства · 2 листопада</span></span>
           <span class="chat-buttons col"><span data-focus="back">← Назад</span></span>
@@ -2605,7 +2599,7 @@ const MOCKS = {
       </div>
       <div class="chat-body">
         <div class="bubble" data-focus="sheet">✅ <b>9 листопада</b><br>👥 Група 1 · Осінні реколекції «Повернення»<br><br><span data-focus="count">Відмічено: <b>2</b> з 3</span><br>Торкніться імені, щоб відмітити або зняти позначку.
-          <span class="chat-buttons col"><span data-focus="marked">✅ Богдан Лисенко</span><span data-focus="unmarked">⬜ Ірина Ткаченко</span><span>✅ Софія Гнатюк ⏳</span><span data-focus="back">← Назад</span></span>
+          <span class="chat-buttons col"><span data-focus="marked">✅ Богдан Лисенко</span><span data-focus="unmarked">⬜ Ірина Ткаченко</span><span>✅ Софія Гнатюк</span><span data-focus="back">← Назад</span></span>
         </div>
       </div>
     </div>`,
