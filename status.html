@@ -6,6 +6,9 @@
   It lives here, on GitHub Pages, because it must not depend on Vercel or
   Railway. The rule redirects to a fixed address, so the visitor's own link
   is gone by the time they read this — hence "open it again later".
+  The button opens the backup Google Form (owned by maxym.stoiakevych@gmail.com,
+  answers land in the "Резервна реєстрація — Галилея (Responses)" sheet);
+  the team then registers people in the admin by hand.
   Self-contained on purpose: no styles.css, no app.js.
 -->
 <html lang="uk">
@@ -24,6 +27,7 @@
         --surface: #ffffff;
         --line: #e3eae6;
         --green: #277539;
+        --on-green: #ffffff;
         color-scheme: light;
       }
       @media (prefers-color-scheme: dark) {
@@ -34,6 +38,7 @@
           --surface: #131d18;
           --line: #24322b;
           --green: #5fb26c;
+          --on-green: #0b130f;
           color-scheme: dark;
         }
       }
@@ -87,6 +92,15 @@
         color: var(--green);
         font-weight: 600;
       }
+      .btn {
+        display: inline-block;
+        margin: 4px 0 16px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        background: var(--green);
+        color: var(--on-green);
+        text-decoration: none;
+      }
       .en {
         margin-top: 24px;
         padding-top: 20px;
@@ -111,12 +125,22 @@
         Ми вже над цим працюємо. Ваше посилання правильне, а подія й реєстрація нікуди не зникли&nbsp;— відкрийте
         посилання знову трохи згодом.
       </p>
+      <p>Не хочете чекати? Залиште заявку&nbsp;— ми зареєструємо вас вручну й зателефонуємо.</p>
+      <a
+        class="btn"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdVBY8C9-K-1LxGuOth4hAgdnyDgWV_Cy7uC4fIrvd_C2WzZA/viewform"
+        >Резервна форма реєстрації</a
+      >
       <p>Новини&nbsp;— на нашій <a href="https://www.facebook.com/GalileaUkraine/">сторінці у Facebook</a>.</p>
       <div class="en" lang="en">
         <h2>The site is temporarily unavailable</h2>
         <p>
           We're working on it. Your link is fine and nothing has been cancelled&nbsp;— please open it again a little
-          later.
+          later, or leave your details in the
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdVBY8C9-K-1LxGuOth4hAgdnyDgWV_Cy7uC4fIrvd_C2WzZA/viewform"
+            >backup registration form</a
+          >
+          (in Ukrainian) and we'll register you by hand.
         </p>
       </div>
     </main>
