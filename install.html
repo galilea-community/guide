@@ -3,9 +3,10 @@
   How to put galilea.com.ua on a phone's home screen — for anyone, not the
   team. (The admin panel's own lesson is `start/install` in app.js.)
   Self-contained like status.html: no app.js, no styles.css. The phone screens
-  are the guide's HTML mock-ups (safari, shareSheet, chrome, homeScreen in
-  app.js) with the site's address and its home-screen label «ГАЛИЛЕЯ» — web-app's
-  manifest `short_name` and `appleWebApp.title`, both `common.appName`.
+  are HTML mock-ups: the browser ones draw the site's own first screen, and the
+  home screens show its label «ГАЛИЛЕЯ» — web-app's manifest `short_name` and
+  `appleWebApp.title`, both `common.appName`. If the site's hero or nav
+  changes, the `.site` blocks below go stale.
   #iphone / #android opens that tab; otherwise the visitor's own phone is picked.
 -->
 <html lang="uk">
@@ -242,9 +243,6 @@
           gap: 40px;
           padding: 28px 32px;
         }
-        .phone {
-          --k: 0.7;
-        }
       }
 
       .notes {
@@ -278,8 +276,9 @@
         text-align: center;
       }
 
-      /* The phone: a frame around a mock-up laid out at a 390 px phone width
-         and scaled to fit (--k). Phones stay light in dark mode, as in the guide. */
+      /* The phone: a frame around a mock-up laid out at a 390 × 844 phone screen
+         (iPhone points; Galaxy S phones share the 19.5:9 shape) and scaled to
+         fit (--k). Phones stay light in dark mode, as in the guide. */
       .phone {
         --k: 0.6;
         justify-self: center;
@@ -293,7 +292,7 @@
       .screen {
         position: relative;
         width: calc(390px * var(--k));
-        height: calc(620px * var(--k));
+        height: calc(844px * var(--k));
         border-radius: 26px;
         overflow: hidden;
         background: #f6f9f7;
@@ -303,7 +302,7 @@
         left: 0;
         top: 0;
         width: 390px;
-        height: 620px;
+        height: 844px;
         transform: scale(var(--k));
         transform-origin: top left;
         overflow: hidden;
@@ -315,6 +314,13 @@
         display: flex;
         flex-direction: column;
       }
+      .mock.dark {
+        background: #0a140f;
+        color: #fff;
+      }
+      .mock i {
+        font-style: normal;
+      }
       .mock [data-focus] {
         position: relative;
         border-radius: 10px;
@@ -322,31 +328,185 @@
           0 0 0 3px var(--gold),
           0 0 0 7px rgb(240 192 78 / 0.35);
       }
-      .browser-page {
+
+      /* Phone hardware and system bars */
+      .island {
+        position: absolute;
+        top: 11px;
+        left: 50%;
+        width: 122px;
+        height: 36px;
+        margin-left: -61px;
+        border-radius: 20px;
+        background: #000;
+      }
+      .punch {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        width: 16px;
+        height: 16px;
+        margin-left: -8px;
+        border-radius: 50%;
+        background: #000;
+      }
+      .status {
+        position: relative;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        padding: 0 34px 0 46px;
+        font: 600 17px/1 var(--font-body);
+      }
+      .status span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .status.android {
+        height: 40px;
+        padding: 0 22px;
+        font-size: 14px;
+        background: #f1f3f2;
+        color: #0a140f;
+      }
+      .sig {
+        width: 17px;
+        height: 12px;
+        background: currentColor;
+        clip-path: polygon(0 100%, 100% 0, 100% 100%);
+      }
+      .bat {
+        width: 25px;
+        height: 12px;
+        padding: 1.5px;
+        border: 1.5px solid currentColor;
+        border-radius: 4px;
+      }
+      .bat::before {
+        content: '';
+        display: block;
+        width: 70%;
+        height: 100%;
+        border-radius: 1px;
+        background: currentColor;
+      }
+      .home-ind {
+        flex: none;
+        display: block;
+        width: 140px;
+        height: 5px;
+        margin: 10px auto 8px;
+        border-radius: 3px;
+        background: currentColor;
+      }
+
+      /* galilea.com.ua's first screen, as a phone shows it */
+      .site {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: #0a140f;
+        color: #fff;
+      }
+      .site-nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 60px;
+        padding: 0 18px;
+      }
+      .site-nav img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+      .site-nav b {
+        font: 800 20px var(--font-heading);
+        letter-spacing: 0.03em;
+      }
+      .site-tools {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: auto;
+        font-size: 22px;
+        color: rgb(255 255 255 / 0.85);
+      }
+      .lang {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 9px 3px 3px;
+        border-radius: 999px;
+        background: rgb(255 255 255 / 0.12);
+        font: 600 11px var(--font-body);
+        color: rgb(255 255 255 / 0.55);
+      }
+      .lang i {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #fff;
+        color: #0a140f;
+      }
+      .site-hero {
         flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 14px;
+        padding: 0 26px 40px;
         text-align: center;
-        color: #44524d;
       }
-      .browser-page img {
-        width: 84px;
-        height: 84px;
+      .site-hero small {
+        max-width: 260px;
+        color: #e0b84f;
+        font-size: 14px;
+        line-height: 1.7;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .site-hero strong {
+        font: 700 58px/1.1 var(--font-heading);
+      }
+      .site-hero p {
+        margin: 0;
+        color: rgb(255 255 255 / 0.55);
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .site-hero span {
+        margin-top: 14px;
+        color: rgb(255 255 255 / 0.5);
+        font-size: 14px;
+      }
+      .site-help {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        display: grid;
+        place-items: center;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
+        background: #3f7a4b;
+        font: 700 24px var(--font-body);
       }
-      .browser-page b {
-        font-family: var(--font-heading);
-        font-size: 24px;
-        letter-spacing: 0.04em;
-        color: #0a140f;
-      }
+
+      /* Safari (iPhone) */
       .browser-bar {
+        flex: none;
+        padding: 12px 16px 0;
         background: #f1f3f2;
         border-top: 1px solid #dfe5e2;
-        padding: 12px 16px 28px;
+        color: #0a140f;
       }
       .url {
         display: block;
@@ -360,10 +520,9 @@
       .browser-tools {
         display: flex;
         justify-content: space-around;
-        margin-top: 12px;
+        margin-top: 8px;
       }
       .browser-tools i {
-        font-style: normal;
         font-size: 26px;
         color: #2a7be4;
         width: 44px;
@@ -372,17 +531,79 @@
         place-items: center;
       }
       .sheet-bg {
-        background: rgb(10 20 15 / 0.35);
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
         justify-content: flex-end;
+        background: rgb(0 0 0 / 0.4);
       }
       .sheet {
-        background: #f4f5f5;
-        border-radius: 20px 20px 0 0;
-        padding: 14px 14px 34px;
+        padding: 16px 14px 0;
+        border-radius: 22px 22px 0 0;
+        background: #f2f2f6;
+        color: #0a140f;
+      }
+      .sheet-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 4px 14px;
+        border-bottom: 1px solid #dcdfe0;
+      }
+      .sheet-head img {
+        width: 46px;
+        height: 46px;
+        border-radius: 11px;
+      }
+      .sheet-head div {
+        flex: 1;
+        min-width: 0;
+      }
+      .sheet-head b {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 15px;
+      }
+      .sheet-head span {
+        color: #6b7a74;
+        font-size: 13px;
+      }
+      .sheet-head i {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e3e5e8;
+        color: #6b7a74;
+        font-size: 14px;
+      }
+      .sheet-apps {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+      .sheet-apps span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        width: 70px;
+        color: #44524d;
+        font-size: 12px;
+      }
+      .sheet-apps i {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #dfe3e6;
       }
       .sheet-row {
         background: #fff;
-        padding: 15px 16px;
+        padding: 14px 16px;
         font-size: 17px;
         display: flex;
         justify-content: space-between;
@@ -395,59 +616,89 @@
         border-radius: 0 0 12px 12px;
         border-bottom: 0;
       }
+
+      /* Chrome (Android) */
       .browser-top {
+        flex: none;
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 44px 12px 10px;
+        gap: 4px;
+        padding: 4px 8px 10px;
         background: #f1f3f2;
+        color: #44524d;
       }
       .browser-top .url {
         flex: 1;
+        text-align: left;
       }
       .browser-top i {
-        font-style: normal;
         font-size: 26px;
-        color: #44524d;
-        width: 34px;
+        width: 36px;
         height: 40px;
         display: grid;
         place-items: center;
       }
+      .browser-top .tab-count {
+        width: 22px;
+        height: 22px;
+        margin: 0 7px;
+        border: 2px solid currentColor;
+        border-radius: 5px;
+        font: 700 12px/1 var(--font-body);
+      }
       .chrome-menu {
-        margin: 0 12px 0 auto;
-        width: 260px;
+        position: absolute;
+        top: 44px;
+        right: 8px;
+        width: 270px;
+        padding: 0 0 6px;
+        border-radius: 14px;
         background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgb(10 20 15 / 0.18);
-        padding: 6px 0;
+        box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+        color: #0a140f;
+      }
+      .menu-icons {
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 6px;
+        border-bottom: 1px solid #e7ebe9;
+        color: #44524d;
+        font-size: 20px;
       }
       .chrome-menu .sheet-row {
         border: 0;
         border-radius: 0;
         font-size: 16px;
-        padding: 13px 18px;
+        padding: 12px 18px;
       }
+
+      /* Home screens */
       .home-screen {
         background: linear-gradient(160deg, #3f7a56, #1d3b2b 70%);
-        padding: 70px 22px;
+        color: #fff;
+      }
+      .home-screen .status {
+        background: none;
+        color: #fff;
       }
       .apps {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 26px 10px;
+        gap: 22px 10px;
+        padding: 26px 20px 0;
       }
       .apps span {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 6px;
-        color: #fff;
-        font-size: 12px;
         padding: 4px 0;
+        font-size: 12px;
+        white-space: nowrap;
       }
       .apps i,
-      .apps img {
+      .apps img,
+      .dock i {
         width: 62px;
         height: 62px;
         border-radius: 15px;
@@ -456,6 +707,51 @@
       .apps img {
         background: #fff;
         object-fit: cover;
+      }
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: auto;
+        padding-bottom: 16px;
+      }
+      .dots i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgb(255 255 255 / 0.45);
+      }
+      .dots i:first-child {
+        background: #fff;
+      }
+      .dock {
+        display: flex;
+        justify-content: space-around;
+        margin: 0 12px;
+        padding: 16px 10px;
+        border-radius: 32px;
+        background: rgb(255 255 255 / 0.18);
+      }
+      .android .dock {
+        margin-top: auto;
+        padding: 10px 22px;
+        background: none;
+      }
+      .android .apps i,
+      .android .apps img,
+      .android .dock i {
+        border-radius: 50%;
+      }
+      .g-search {
+        display: flex;
+        align-items: center;
+        height: 52px;
+        margin: 6px 18px 4px;
+        padding: 0 20px;
+        border-radius: 26px;
+        background: rgb(255 255 255 / 0.9);
+        color: #44524d;
+        font: 700 20px var(--font-body);
       }
     </style>
   </head>
@@ -506,11 +802,23 @@
             </div>
             <div class="phone" aria-hidden="true">
               <div class="screen">
-                <div class="mock">
-                  <div class="browser-page">
-                    <img src="img/logo.jpg" alt="" />
-                    <b>ГАЛИЛЕЯ</b>
-                    <span>Спільнота Христа Воскреслого</span>
+                <div class="mock dark">
+                  <i class="island"></i>
+                  <div class="status"><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span></div>
+                  <div class="site">
+                    <div class="site-nav">
+                      <img src="img/logo.jpg" alt="" /><b>ГАЛИЛЕЯ</b
+                      ><span class="site-tools">☼<span class="lang"><i>УК</i>EN</span>☰</span>
+                    </div>
+                    <div class="site-hero">
+                      <small>Спільнота Христа Воскреслого</small><strong>Галилея</strong>
+                      <p>
+                        Євангелізаційна спільнота Греко-католицької і Римо-католицької Церкви, де кожен може знайти
+                        істинного та живого Бога
+                      </p>
+                      <span>Дізнатися більше ↓</span>
+                    </div>
+                    <i class="site-help">?</i>
                   </div>
                   <div class="browser-bar">
                     <span class="url">galilea.com.ua</span>
@@ -534,6 +842,7 @@
                           /></svg></i
                       ><i>▢</i><i>⧉</i>
                     </div>
+                    <i class="home-ind"></i>
                   </div>
                 </div>
               </div>
@@ -549,13 +858,40 @@
             </div>
             <div class="phone" aria-hidden="true">
               <div class="screen">
-                <div class="mock sheet-bg">
-                  <div class="sheet">
-                    <div class="sheet-row">Копіювати</div>
-                    <div class="sheet-row">Додати до списку читання</div>
-                    <div class="sheet-row">Додати закладку</div>
-                    <div class="sheet-row" data-focus>На екран „Додому“ <span>⊞</span></div>
-                    <div class="sheet-row">Друкувати</div>
+                <div class="mock dark">
+                  <i class="island"></i>
+                  <div class="status"><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span></div>
+                  <div class="site">
+                    <div class="site-nav">
+                      <img src="img/logo.jpg" alt="" /><b>ГАЛИЛЕЯ</b
+                      ><span class="site-tools">☼<span class="lang"><i>УК</i>EN</span>☰</span>
+                    </div>
+                    <div class="site-hero">
+                      <small>Спільнота Христа Воскреслого</small><strong>Галилея</strong>
+                    </div>
+                  </div>
+                  <div class="sheet-bg">
+                    <div class="sheet">
+                      <div class="sheet-head">
+                        <img src="img/logo.jpg" alt="" />
+                        <div><b>ГАЛИЛЕЯ — Спільнота Христа Воскреслого</b><span>galilea.com.ua</span></div>
+                        <i>✕</i>
+                      </div>
+                      <div class="sheet-apps">
+                        <span><i></i>AirDrop</span><span><i></i>Повідомл.</span><span><i></i>Пошта</span
+                        ><span><i></i>Telegram</span><span><i></i>Viber</span>
+                      </div>
+                      <div>
+                        <div class="sheet-row">Копіювати</div>
+                        <div class="sheet-row">Додати до списку читання</div>
+                        <div class="sheet-row">Додати закладку</div>
+                        <div class="sheet-row">Додати до Вибраного</div>
+                        <div class="sheet-row">Знайти на сторінці</div>
+                        <div class="sheet-row" data-focus>На екран „Додому“ <span>⊞</span></div>
+                        <div class="sheet-row">Друкувати</div>
+                      </div>
+                      <i class="home-ind"></i>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -572,11 +908,19 @@
             <div class="phone" aria-hidden="true">
               <div class="screen">
                 <div class="mock home-screen">
+                  <i class="island"></i>
+                  <div class="status"><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span></div>
                   <div class="apps">
-                    <span><i></i>Камера</span><span><i></i>Фото</span><span><i></i>Карти</span
-                    ><span><i></i>Погода</span><span><i></i>Пошта</span><span><i></i>Telegram</span>
+                    <span><i></i>Календар</span><span><i></i>Фото</span><span><i></i>Камера</span
+                    ><span><i></i>Погода</span><span><i></i>Годинник</span><span><i></i>Карти</span
+                    ><span><i></i>Нотатки</span><span><i></i>Нагадування</span><span><i></i>App Store</span
+                    ><span><i></i>Параметри</span><span><i></i>Telegram</span><span><i></i>Viber</span
+                    ><span><i></i>Instagram</span>
                     <span data-focus><img src="img/logo.jpg" alt="" />ГАЛИЛЕЯ</span>
                   </div>
+                  <div class="dots"><i></i><i></i></div>
+                  <div class="dock"><i></i><i></i><i></i><i></i></div>
+                  <i class="home-ind"></i>
                 </div>
               </div>
             </div>
@@ -601,13 +945,29 @@
             </div>
             <div class="phone" aria-hidden="true">
               <div class="screen">
-                <div class="mock">
-                  <div class="browser-top"><span class="url">galilea.com.ua</span><i data-focus>⋮</i></div>
-                  <div class="browser-page">
-                    <img src="img/logo.jpg" alt="" />
-                    <b>ГАЛИЛЕЯ</b>
-                    <span>Спільнота Христа Воскреслого</span>
+                <div class="mock dark">
+                  <div class="status android">
+                    <i class="punch"></i><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span>
                   </div>
+                  <div class="browser-top">
+                    <i>⌂</i><span class="url">galilea.com.ua</span><i class="tab-count">1</i><i data-focus>⋮</i>
+                  </div>
+                  <div class="site">
+                    <div class="site-nav">
+                      <img src="img/logo.jpg" alt="" /><b>ГАЛИЛЕЯ</b
+                      ><span class="site-tools">☼<span class="lang"><i>УК</i>EN</span>☰</span>
+                    </div>
+                    <div class="site-hero">
+                      <small>Спільнота Христа Воскреслого</small><strong>Галилея</strong>
+                      <p>
+                        Євангелізаційна спільнота Греко-католицької і Римо-католицької Церкви, де кожен може знайти
+                        істинного та живого Бога
+                      </p>
+                      <span>Дізнатися більше ↓</span>
+                    </div>
+                    <i class="site-help">?</i>
+                  </div>
+                  <i class="home-ind"></i>
                 </div>
               </div>
             </div>
@@ -622,13 +982,38 @@
             </div>
             <div class="phone" aria-hidden="true">
               <div class="screen">
-                <div class="mock">
-                  <div class="browser-top"><span class="url">galilea.com.ua</span><i>⋮</i></div>
+                <div class="mock dark">
+                  <div class="status android">
+                    <i class="punch"></i><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span>
+                  </div>
+                  <div class="browser-top">
+                    <i>⌂</i><span class="url">galilea.com.ua</span><i class="tab-count">1</i><i>⋮</i>
+                  </div>
+                  <div class="site">
+                    <div class="site-nav">
+                      <img src="img/logo.jpg" alt="" /><b>ГАЛИЛЕЯ</b
+                      ><span class="site-tools">☼<span class="lang"><i>УК</i>EN</span>☰</span>
+                    </div>
+                    <div class="site-hero">
+                      <small>Спільнота Христа Воскреслого</small><strong>Галилея</strong>
+                      <p>
+                        Євангелізаційна спільнота Греко-католицької і Римо-католицької Церкви, де кожен може знайти
+                        істинного та живого Бога
+                      </p>
+                      <span>Дізнатися більше ↓</span>
+                    </div>
+                    <i class="site-help">?</i>
+                  </div>
+                  <i class="home-ind"></i>
                   <div class="chrome-menu">
+                    <div class="menu-icons"><i>→</i><i>☆</i><i>⤓</i><i>ⓘ</i><i>↻</i></div>
                     <div class="sheet-row">Нова вкладка</div>
+                    <div class="sheet-row">Нова анонімна вкладка</div>
                     <div class="sheet-row">Історія</div>
                     <div class="sheet-row">Завантаження</div>
+                    <div class="sheet-row">Закладки</div>
                     <div class="sheet-row">Поділитися…</div>
+                    <div class="sheet-row">Знайти на сторінці</div>
                     <div class="sheet-row" data-focus>Додати на головний екран</div>
                     <div class="sheet-row">Налаштування</div>
                   </div>
@@ -646,12 +1031,20 @@
             </div>
             <div class="phone" aria-hidden="true">
               <div class="screen">
-                <div class="mock home-screen">
+                <div class="mock home-screen android">
+                  <div class="status android">
+                    <i class="punch"></i><b>9:41</b><span><i class="sig"></i><i class="bat"></i></span>
+                  </div>
                   <div class="apps">
-                    <span><i></i>Камера</span><span><i></i>Фото</span><span><i></i>Карти</span
-                    ><span><i></i>Погода</span><span><i></i>Пошта</span><span><i></i>Telegram</span>
+                    <span><i></i>Календар</span><span><i></i>Галерея</span><span><i></i>Камера</span
+                    ><span><i></i>Погода</span><span><i></i>Годинник</span><span><i></i>Карти</span
+                    ><span><i></i>Нотатки</span><span><i></i>Play Маркет</span><span><i></i>Контакти</span
+                    ><span><i></i>Telegram</span><span><i></i>Viber</span><span><i></i>Instagram</span>
                     <span data-focus><img src="img/logo.jpg" alt="" />ГАЛИЛЕЯ</span>
                   </div>
+                  <div class="dock"><i></i><i></i><i></i><i></i></div>
+                  <div class="g-search">G</div>
+                  <i class="home-ind"></i>
                 </div>
               </div>
             </div>
