@@ -33,7 +33,7 @@ const SCREENS = {
   houseMaterials: { src: 'img/house-materials.jpg', h: 2712, alt: 'Матеріали на тиждень' },
   // Координатор Домів
   hcOverview: { src: 'img/hc-overview.jpg', h: 2714, alt: 'Огляд Координатора Домів' },
-  hcApplications: { src: 'img/hc-applications.jpg', h: 1688, alt: 'Заявки до Домів' },
+  hcApplications: { src: 'img/hc-applications.jpg', h: 1688, alt: 'Заявки на Доми' },
   hcApplicationRow: { src: 'img/hc-application-row.jpg', h: 1832, alt: 'Розгорнута заявка' },
   hcAppform: { src: 'img/hc-appform.jpg', h: 1688, alt: 'Форма заявки' },
   hcHouses: { src: 'img/hc-houses.jpg', h: 2104, alt: 'Усі Доми' },
@@ -1043,7 +1043,7 @@ const MODULES = [
     id: 'house-coordination',
     title: 'Координація Домів',
     who: 'Для Координаторів Домів',
-    summary: 'Заявки до Домів, форма заявки, Доми та їхні Господарі, загальні матеріали, звернення і кошик.',
+    summary: 'Заявки на Доми, форма заявки, Доми та їхні Господарі, загальні матеріали, звернення і кошик.',
     lessons: [
       {
         id: 'overview',
@@ -1072,7 +1072,7 @@ const MODULES = [
             screen: 'hcOverview',
             area: [30, 950, 720, 490],
             title: 'Заявки',
-            text: 'Заявки до Домів за статусами: нові, у роботі, опрацьовані, відхилені.',
+            text: 'Заявки на Доми за статусами: нові, у роботі, опрацьовані, відхилені.',
           },
           {
             screen: 'hcOverview',
@@ -1089,14 +1089,14 @@ const MODULES = [
         ],
         quiz: {
           q: 'Що означає число біля «Доми Воскресіння» в меню?',
-          options: ['Скільки Домів неактивні', 'Скільки нових заявок до Домів', 'Скільки нових Господарів'],
+          options: ['Скільки Домів неактивні', 'Скільки нових заявок на Доми', 'Скільки нових Господарів'],
           answer: 1,
           why: 'Число в меню — нове, що чекає на вас.',
         },
       },
       {
         id: 'applications',
-        title: 'Заявки до Домів',
+        title: 'Заявки на Доми',
         summary: 'Хто хоче приєднатися до Дому.',
         steps: [
           {
@@ -1164,7 +1164,7 @@ const MODULES = [
             screen: 'hcAppform',
             spot: [314, 512],
             title: 'Вкладка «Форма заявки»',
-            text: 'Тут налаштовують сторінку, з якої люди подають заявки до Домів.',
+            text: 'Тут налаштовують сторінку, з якої люди подають заявки на Доми.',
           },
           {
             screen: 'hcAppform',
@@ -2076,7 +2076,7 @@ const BUNDLES = [
     id: 'house-coordinators',
     title: 'Координаторам Домів',
     who: 'Координатор Домів',
-    sees: 'Усі Доми, заявки до Домів, загальні матеріали, звернення.',
+    sees: 'Усі Доми, заявки на Доми, загальні матеріали, звернення.',
     modules: ['start', 'house-coordination'],
   },
   {
@@ -2663,7 +2663,7 @@ const MOCKS = {
       </div>
       <div class="chat-body">
         <div class="bubble me" data-focus="command">/applications</div>
-        <div class="bubble" data-focus="card">🏠 <b>Заявка до Домів</b> · 🆕 Нова<br><b>Соломія Вербицька</b><br>📞 +380 63 123 45 20<br>🌍 Україна · 27 років<br>🗓 Подано 4 листопада
+        <div class="bubble" data-focus="card">🏠 <b>Заявка на Доми</b> · 🆕 Нова<br><b>Соломія Вербицька</b><br>📞 +380 63 123 45 20<br>🌍 Україна · 27 років<br>🗓 Подано 4 листопада
           <span class="chat-buttons" data-focus="buttons"><span>📞 Зв'язалися</span><span>✅ Готово</span><span>🚫 Відхилити</span></span>
         </div>
         <div class="bubble">📥 Чекають на рішення: 2</div>
